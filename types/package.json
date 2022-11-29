@@ -1,0 +1,23 @@
+{
+  "name": "~types",
+  "private": true,
+  "version": "0.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "dev": "npm run build -- --watch --preserveWatchOutput",
+    "build": "tsc --pretty"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3",
+    "vitest": "^0.25.2"
+  },
+  "main": "./dist-tsc/api.js",
+  "exports": {
+    ".": "./dist-tsc/api.js",
+    "./api": "./dist-tsc/api.js",
+    "./api.js": "./dist-tsc/api.js",
+    "./api.ts": "./api.ts"
+  }
+}
