@@ -14,7 +14,7 @@
  * // in the form: ("string for variable name", variable):
  * dbgLog(file, trace, "variableName1", varaibleName1, "variableName2", varaibleName2, ...etc)
  */
-const dbgLog: Logger = (file: string, trace: string | string[], ...logs: Array<string | any>) => {
+const dbgLog: Logger = (file, trace, ...logs) => {
   try {
     console.log(
       `${"-".repeat(8)}${file}${"-".repeat(8)}\n`,
@@ -40,8 +40,8 @@ const dbgLog: Logger = (file: string, trace: string | string[], ...logs: Array<s
  * log(trace, "variableName1", varaibleName1, "variableName2", varaibleName2, ...etc)
  * // same as dbgLog(file, trace, "variableName1", varaibleName1, "variableName2", varaibleName2, ...etc)
  */
-export const dbgFileLogger: FileLoggerFactory = (file: string) => {
-  const fileFn = (...args: [trace: string | string[], ...logs: Array<string | any>]) => dbgLog(file, ...args)
+export const dbgFileLogger: FileLoggerFactory = (file) => {
+  const fileFn: FileLogger = (...args) => dbgLog(file, ...args)
 
   /** @readonly */
   fileFn.file = file
@@ -57,14 +57,14 @@ export const dbgFileLogger: FileLoggerFactory = (file: string) => {
    * log("variableName1", varaibleName1, "variableName2", varaibleName2, ...etc)
    * // same as dbgLog(file, trace, "variableName1", varaibleName1, "variableName2", varaibleName2, ...etc)
    */
-  fileFn.stackLogger = (trace: string | string[]) => {
-    const stackFn = (...logs: Array<string | any>) => fileFn(trace, ...logs)
+  fileFn.stackLogger = (...trace) => {
+    const stackFn: StackLogger = (...logs) => fileFn(trace.flat(), ...logs)
     
     /** @readonly */
-    stackFn.file = fileFn.file
+    stackFn.file = file
     
     /** @readonly */
-    stackFn.trace = trace
+    stackFn.trace = trace.flat()
     
     
     return stackFn
@@ -83,7 +83,7 @@ export type FileLogger = FileLogFn & FileLoggerProps
 export type StackLogger = StackLogFn & StackLoggerProps
 
 export type FileLoggerFactory = (file: string) => FileLogger
-export type StackLoggerFactory = (trace: string | string[]) => StackLogger
+export type StackLoggerFactory = (...trace: string[] | [string | string[]]) => StackLogger
 
 export interface LoggerProps extends Function {
   fileLogger: FileLoggerFactory
