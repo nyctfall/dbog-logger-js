@@ -10,14 +10,23 @@
     "build": "tsc --pretty"
   },
   "devDependencies": {
+    "@types/eslint": "^8.4.10",
+    "@types/prettier": "2.7.1",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "2.8.0",
+    "prettier-eslint-cli": "^7.1.0",
     "typescript": "^4.9.3",
     "vitest": "^0.25.2"
   },
-  "main": "./dist-tsc/api.js",
+  "main": "./dist-tsc/logger.js",
   "exports": {
-    ".": "./dist-tsc/api.js",
-    "./api": "./dist-tsc/api.js",
-    "./api.js": "./dist-tsc/api.js",
-    "./api.ts": "./api.ts"
+    ".": "./dist-tsc/logger.js",
+    "./logger": "./dist-tsc/logger.js",
+    "./logger.js": "./dist-tsc/logger.js",
+    "./logger.ts": "./logger.ts"
   }
 }
